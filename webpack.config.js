@@ -7,6 +7,7 @@ module.exports = {
   devtool: "inline-source-map",
   entry: "./src/index.js",
   mode: "development",
+  cache: false,
   devServer: {
     static: "./dist",
   },
