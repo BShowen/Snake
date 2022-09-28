@@ -1,0 +1,33 @@
+{
+  "name": "snake-js",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "start": "webpack serve --open",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BShowen/Snake.git"
+  },
+  "author": "Bradley Showen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BShowen/Snake/issues"
+  },
+  "homepage": "https://github.com/BShowen/Snake#readme",
+  "devDependencies": {
+    "eslint": "^8.24.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-webpack-plugin": "^3.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "prettier": "2.7.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
+  }
+}
