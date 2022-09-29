@@ -36,7 +36,7 @@ export function Snake() {
     }
   }
 
-  function _getNextCoords() {
+  function _getNextCoords(portals) {
     // The operands to be worked on in this method.
     const [currentX, currentY] = head;
 
@@ -47,6 +47,18 @@ export function Snake() {
     let nextX = (currentX + vMagnitude[0]) % 1000;
     let nextY = (currentY + vMagnitude[1]) % 1000;
 
+    const [portalA, portalB] = portals;
+    const [portalA_X, portalA_Y] = portalA;
+    const [portalB_X, portalB_Y] = portalB;
+
+    if (nextX === portalA_X && nextY === portalA_Y) {
+      nextX = portalB_X + vMagnitude[0];
+      nextY = portalB_Y + vMagnitude[1];
+    } else if (nextX === portalB_X && nextY === portalB_Y) {
+      nextX = portalA_X + vMagnitude[0];
+      nextY = portalA_Y + vMagnitude[1];
+    }
+
     // Allow negative wrapping around the map.
     if (nextX < 0) nextX = 1000 - Math.abs(nextX);
     if (nextY < 0) nextY = 1000 - Math.abs(nextY);
@@ -54,14 +66,14 @@ export function Snake() {
     return [nextX, nextY];
   }
 
-  function move(food) {
+  function move(food, portals) {
     // Make sure currentDirection always reflects what the user wants.
     currentDirection = moveQueue.shift() || currentDirection;
 
     // This gets triggered ONLY when the game is initially started.
     if (currentDirection === "idle") return body;
 
-    const [nextX, nextY] = _getNextCoords();
+    const [nextX, nextY] = _getNextCoords(portals);
 
     if (_isBodyCoord([nextX, nextY])) {
       body.length = 1;

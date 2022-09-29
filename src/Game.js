@@ -2,6 +2,7 @@ import { draw } from "./draw";
 import { Snake } from "./Snake";
 import { isArrowKey } from "./isArrowKey";
 import { foodGenerator } from "./foodGenerator";
+import { portals } from "./portals";
 
 export function Game() {
   let isPaused;
@@ -30,9 +31,10 @@ export function Game() {
   };
 
   const _draw = () => {
-    snake.move(food);
+    snake.move(food, portals);
     try {
       draw(
+        { coords: portals, fillColor: "red" },
         { coords: food.getFood(), fillColor: "green" },
         { coords: snake.getBody(), fillColor: "orange", travelThroughWalls }
       );
