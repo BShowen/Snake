@@ -36,21 +36,32 @@ export function Snake() {
     }
   }
 
-  function move(food) {
+  function _getNextCoords() {
     // The operands to be worked on in this method.
-    let [currentX, currentY] = head;
+    const [currentX, currentY] = head;
 
+    // Get the magnitude to add to the current vector (head)
+    const vMagnitude = directionMap[currentDirection];
+
+    // Allow positive wrapping around the map.
+    let nextX = (currentX + vMagnitude[0]) % 1000;
+    let nextY = (currentY + vMagnitude[1]) % 1000;
+
+    // Allow negative wrapping around the map.
+    if (nextX < 0) nextX = 1000 - Math.abs(nextX);
+    if (nextY < 0) nextY = 1000 - Math.abs(nextY);
+
+    return [nextX, nextY];
+  }
+
+  function move(food) {
     // Make sure currentDirection always reflects what the user wants.
     currentDirection = moveQueue.shift() || currentDirection;
 
     // This gets triggered ONLY when the game is initially started.
     if (currentDirection === "idle") return body;
 
-    // Get the magnitude to add to the current vector (head)
-    const vMagnitude = directionMap[currentDirection];
-
-    const nextX = currentX + vMagnitude[0];
-    const nextY = currentY + vMagnitude[1];
+    const [nextX, nextY] = _getNextCoords();
 
     if (_isBodyCoord([nextX, nextY])) {
       body.length = 1;

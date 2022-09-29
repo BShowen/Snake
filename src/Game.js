@@ -7,6 +7,7 @@ export function Game() {
   let isPaused;
   let interval;
   let speed = 175;
+  const travelThroughWalls = true;
   const snake = new Snake();
   const food = foodGenerator(5);
 
@@ -33,7 +34,7 @@ export function Game() {
     try {
       draw(
         { coords: food.getFood(), fillColor: "green" },
-        { coords: snake.body, fillColor: "orange" }
+        { coords: snake.body, fillColor: "orange", travelThroughWalls }
       );
     } catch (e) {
       clearInterval(interval);
