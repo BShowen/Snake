@@ -34,7 +34,7 @@ export function Game() {
     try {
       draw(
         { coords: food.getFood(), fillColor: "green" },
-        { coords: snake.body, fillColor: "orange", travelThroughWalls }
+        { coords: snake.getBody(), fillColor: "orange", travelThroughWalls }
       );
     } catch (e) {
       clearInterval(interval);

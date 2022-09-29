@@ -76,5 +76,10 @@ export function Snake() {
     return body;
   }
 
-  return { move, setDirection, body };
+  function getBody() {
+    // Return a COPY of the body.
+    return body.slice();
+  }
+
+  return { move, setDirection, getBody };
 }
