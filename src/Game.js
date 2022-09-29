@@ -1,12 +1,14 @@
 import { draw } from "./draw";
 import { Snake } from "./Snake";
 import { isArrowKey } from "./isArrowKey";
+import { foodGenerator } from "./foodGenerator";
 
 export function Game() {
   let isPaused;
   let interval;
-  let speed = 100;
+  let speed = 175;
   const snake = new Snake();
+  const food = foodGenerator(5);
 
   const start = () => {
     interval = setInterval(_draw, speed);
@@ -27,8 +29,12 @@ export function Game() {
   };
 
   const _draw = () => {
+    snake.move(food);
     try {
-      draw({ coords: snake.move(), fillColor: "orange" });
+      draw(
+        { coords: food.getFood(), fillColor: "green" },
+        { coords: snake.body, fillColor: "orange" }
+      );
     } catch (e) {
       clearInterval(interval);
       alert(e.message);

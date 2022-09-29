@@ -1,4 +1,4 @@
-export function coordinateGenerator() {
+export function randomCoordinate() {
   const randomInt = () => {
     return Math.floor(Math.random() * 1000);
   };

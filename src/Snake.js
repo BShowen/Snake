@@ -15,6 +15,14 @@ export function Snake() {
     });
   }
 
+  function _canEatFood(foodCoordinates) {
+    return foodCoordinates.some((foodCoordinate) => {
+      const [foodX, foodY] = foodCoordinate;
+      const [headX, headY] = head;
+      return foodX === headX && foodY === headY;
+    });
+  }
+
   function setDirection(direction) {
     switch (moveQueue.length) {
       case 0:
@@ -28,7 +36,7 @@ export function Snake() {
     }
   }
 
-  function move() {
+  function move(food) {
     // The operands to be worked on in this method.
     let [currentX, currentY] = head;
 
@@ -45,7 +53,10 @@ export function Snake() {
     const nextY = currentY + vMagnitude[1];
 
     if (_isBodyCoord([nextX, nextY])) {
-      body.length = 0;
+      body.length = 1;
+    } else if (_canEatFood(food.getFood())) {
+      food.remove(head);
+      body.unshift([nextX, nextY]);
     } else {
       body.unshift([nextX, nextY]);
       body.pop();
@@ -54,5 +65,5 @@ export function Snake() {
     return body;
   }
 
-  return { move, setDirection };
+  return { move, setDirection, body };
 }
